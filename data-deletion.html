@@ -4,221 +4,162 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OZOservir — Suppression des données</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0a0a0f;
-      --surface: #12121a;
-      --surface2: #16161f;
-      --border: #1e1e2e;
-      --accent: #ff6b35;
-      --accent2: #7c3aed;
-      --text: #e8e8f0;
-      --muted: #6b6b80;
-      --highlight: rgba(255, 107, 53, 0.08);
-      --red: #ef4444;
+      --teal: #5B9E94;
+      --teal-light: #EAF4F2;
+      --teal-mid: #C5E0DC;
+      --amber: #E8952A;
+      --amber-light: #FEF3E2;
+      --navy: #2D3481;
+      --text: #333344;
+      --muted: #8888A0;
+      --bg: #FFFFFF;
+      --surface: #F8FAFA;
+      --border: #E8EFEE;
+      --red: #E05252;
+      --red-light: #FEF0F0;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg); color: var(--text);
-      font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.75; min-height: 100vh;
-    }
-    body::before {
-      content: ''; position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 0;
-    }
+    body { background: var(--bg); color: var(--text); font-family: 'Nunito', sans-serif; font-size: 16px; line-height: 1.7; }
     header {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(10, 10, 15, 0.85); backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border); padding: 1rem 2rem;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 0.9rem 1.5rem;
       display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 1px 12px rgba(91,158,148,0.08);
     }
-    .logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
-    .logo-mark {
-      width: 36px; height: 36px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      border-radius: 10px; display: flex; align-items: center; justify-content: center;
-      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 14px; color: white;
-    }
-    .logo-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--text); }
-    .logo-text span { color: var(--accent); }
-    nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; margin-left: 1.5rem; }
-    nav a:hover { color: var(--accent); }
+    .logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+    .logo-mark { width: 38px; height: 38px; }
+    .logo-mark svg { width: 100%; height: 100%; }
+    .logo-text { font-weight: 800; font-size: 1.15rem; color: var(--navy); }
+    .logo-text span { color: var(--teal); }
+    nav { display: flex; gap: 0.25rem; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 0.4rem 0.9rem; border-radius: 20px; transition: all 0.2s; }
+    nav a:hover, nav a.active { background: var(--teal-light); color: var(--teal); }
 
-    .hero { position: relative; padding: 5rem 2rem 3rem; max-width: 680px; margin: 0 auto; }
-    .badge {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2);
-      border-radius: 100px; padding: 0.35rem 1rem;
-      font-size: 0.78rem; color: var(--red); font-weight: 500;
-      letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1.5rem;
-    }
-    .badge::before { content: ''; width: 6px; height: 6px; background: var(--red); border-radius: 50%; animation: pulse 2s infinite; }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.5); }
-    }
-    h1 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1rem; }
-    .subtitle { color: var(--muted); font-size: 1rem; font-weight: 300; }
-    .divider { width: 60px; height: 3px; background: linear-gradient(to right, var(--red), var(--accent)); border-radius: 2px; margin: 2rem 0; }
+    .hero { background: linear-gradient(160deg, #FEF0F0 0%, #fff 55%); padding: 4rem 1.5rem 3rem; text-align: center; border-bottom: 1px solid #F5C5C5; }
+    .badge { display: inline-flex; align-items: center; gap: 0.5rem; background: white; border: 1.5px solid #F5C5C5; border-radius: 100px; padding: 0.3rem 1rem; font-size: 0.75rem; font-weight: 700; color: var(--red); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.25rem; box-shadow: 0 2px 8px rgba(224,82,82,0.1); }
+    .badge::before { content: '🗑️'; font-size: 0.8rem; }
+    h1 { font-weight: 900; font-size: clamp(1.8rem, 5vw, 2.8rem); color: var(--navy); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 0.75rem; }
+    .subtitle { color: var(--muted); font-size: 0.95rem; font-weight: 500; max-width: 500px; margin: 0 auto; }
+    .divider { width: 50px; height: 4px; background: linear-gradient(to right, var(--red), var(--amber)); border-radius: 4px; margin: 1.5rem auto 0; }
 
-    .content { max-width: 680px; margin: 0 auto; padding: 0 2rem 6rem; }
+    .content { max-width: 680px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
 
-    /* How it works */
-    .steps {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
-      margin-bottom: 2.5rem;
-    }
-    @media (max-width: 600px) { .steps { grid-template-columns: 1fr; } }
-    .step {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 14px; padding: 1.5rem; text-align: center;
-    }
-    .step-num {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: linear-gradient(135deg, rgba(255, 107, 53, 0.15), rgba(124, 58, 237, 0.15));
-      border: 1px solid rgba(255, 107, 53, 0.2);
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.9rem; color: var(--accent);
-      margin: 0 auto 1rem;
-    }
-    .step h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.5rem; }
-    .step p { color: var(--muted); font-size: 0.85rem; margin: 0; }
+    /* Steps */
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+    @media (max-width: 580px) { .steps { grid-template-columns: 1fr; } }
+    .step { background: var(--surface); border: 1.5px solid var(--border); border-radius: 16px; padding: 1.25rem; text-align: center; transition: all 0.2s; }
+    .step:hover { border-color: var(--teal-mid); box-shadow: 0 4px 16px rgba(91,158,148,0.1); }
+    .step-num { width: 38px; height: 38px; border-radius: 50%; background: var(--teal-light); border: 2px solid var(--teal-mid); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.95rem; color: var(--teal); margin: 0 auto 0.75rem; }
+    .step h3 { font-weight: 800; font-size: 0.88rem; color: var(--navy); margin-bottom: 0.4rem; }
+    .step p { color: var(--muted); font-size: 0.82rem; font-weight: 400; }
 
     /* Form */
-    .form-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 20px; padding: 2.5rem; margin-bottom: 1.5rem;
-    }
-    .form-card h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.3rem; margin-bottom: 1.75rem; }
-    .form-grid { display: grid; gap: 1.25rem; }
-    .field label {
-      display: block; font-size: 0.82rem; font-weight: 500;
-      color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem;
-    }
+    .form-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 20px; padding: 2rem; margin-bottom: 1.25rem; }
+    .form-card h2 { font-weight: 800; font-size: 1.2rem; color: var(--navy); margin-bottom: 1.5rem; }
+    .form-grid { display: grid; gap: 1.1rem; }
+    .field label { display: block; font-size: 0.78rem; font-weight: 800; color: var(--navy); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem; }
     .field input, .field textarea, .field select {
-      width: 100%; background: var(--bg); border: 1px solid var(--border);
-      border-radius: 10px; padding: 0.85rem 1.1rem;
-      color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
-      transition: border-color 0.2s, box-shadow 0.2s; outline: none;
-      -webkit-appearance: none; appearance: none;
+      width: 100%; background: white; border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 0.75rem 1rem;
+      color: var(--text); font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 500;
+      transition: border-color 0.2s, box-shadow 0.2s; outline: none; -webkit-appearance: none;
     }
     .field input:focus, .field textarea:focus, .field select:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.12);
+      border-color: var(--teal); box-shadow: 0 0 0 3px rgba(91,158,148,0.12);
     }
-    .field input::placeholder, .field textarea::placeholder { color: #3a3a50; }
-    .field textarea { resize: vertical; min-height: 100px; }
-    .field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6b80' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
-    .field select option { background: #12121a; }
+    .field input::placeholder, .field textarea::placeholder { color: #C0C0D0; font-weight: 400; }
+    .field textarea { resize: vertical; min-height: 90px; }
+    .field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238888A0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 12px; padding-right: 2.5rem; cursor: pointer; }
+    .field select option { font-family: 'Nunito', sans-serif; }
 
-    .warning {
-      background: rgba(239, 68, 68, 0.06); border: 1px solid rgba(239, 68, 68, 0.15);
-      border-radius: 10px; padding: 1rem 1.25rem; margin-top: 0.5rem;
-      font-size: 0.85rem; color: #f87171; display: flex; align-items: flex-start; gap: 0.75rem;
-    }
-    .warning::before { content: '⚠️'; flex-shrink: 0; }
+    .warning-box { background: var(--red-light); border: 1.5px solid #F5C5C5; border-radius: 12px; padding: 0.9rem 1.1rem; margin-top: 0.5rem; display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.86rem; color: #A03030; font-weight: 500; }
 
     .btn-delete {
-      width: 100%; margin-top: 1.5rem;
-      background: linear-gradient(135deg, #ef4444, #dc2626);
-      border: none; border-radius: 12px;
-      padding: 1rem 2rem; color: white;
-      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
-      cursor: pointer; transition: opacity 0.2s, transform 0.15s;
-      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      width: 100%; margin-top: 1.25rem; background: var(--red);
+      border: none; border-radius: 14px; padding: 0.95rem 2rem;
+      color: white; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1rem;
+      cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      box-shadow: 0 4px 16px rgba(224,82,82,0.3);
     }
-    .btn-delete:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-delete:hover { background: #C94444; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(224,82,82,0.35); }
     .btn-delete:active { transform: translateY(0); }
 
-    /* Success state */
-    .success-card {
-      display: none; background: var(--surface);
-      border: 1px solid rgba(34, 197, 94, 0.25); border-radius: 20px;
-      padding: 3rem 2.5rem; text-align: center; margin-bottom: 1.5rem;
-    }
-    .success-card.show { display: block; animation: fadeIn 0.4s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    .success-icon {
-      width: 70px; height: 70px; background: rgba(34, 197, 94, 0.1);
-      border: 2px solid rgba(34, 197, 94, 0.3);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-size: 2rem; margin: 0 auto 1.5rem;
-    }
-    .success-card h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.5rem; margin-bottom: 0.75rem; }
-    .success-card p { color: var(--muted); max-width: 380px; margin: 0 auto; }
-    .ref-code {
-      display: inline-block; margin-top: 1.5rem;
-      background: rgba(34, 197, 94, 0.08); border: 1px solid rgba(34, 197, 94, 0.2);
-      border-radius: 8px; padding: 0.5rem 1.25rem;
-      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; color: #4ade80;
-      letter-spacing: 0.1em;
-    }
+    /* Success */
+    .success-card { display: none; background: var(--surface); border: 1.5px solid #A8D8A8; border-radius: 20px; padding: 3rem 2rem; text-align: center; margin-bottom: 1.25rem; }
+    .success-card.show { display: block; animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    @keyframes pop { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+    .success-icon { width: 72px; height: 72px; background: #E8F8E8; border: 2px solid #A8D8A8; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1.5rem; }
+    .success-card h2 { font-weight: 900; font-size: 1.5rem; color: var(--navy); margin-bottom: 0.75rem; }
+    .success-card p { color: var(--muted); font-size: 0.95rem; max-width: 380px; margin: 0 auto; }
+    .ref-code { display: inline-block; margin-top: 1.25rem; background: #E8F8E8; border: 1.5px solid #A8D8A8; border-radius: 10px; padding: 0.5rem 1.25rem; font-weight: 800; font-size: 0.88rem; color: #3A8A3A; letter-spacing: 0.08em; }
 
-    /* Alt method */
-    .alt-card {
-      background: var(--surface2); border: 1px solid var(--border);
-      border-radius: 16px; padding: 1.75rem; text-align: center;
-    }
-    .alt-card p { color: var(--muted); font-size: 0.9rem; margin-bottom: 0.75rem; }
-    .alt-card a {
-      color: var(--accent); font-family: 'Syne', sans-serif; font-weight: 700;
-      text-decoration: none; font-size: 1rem;
-    }
+    /* Alt */
+    .alt-card { background: var(--teal-light); border: 1.5px solid var(--teal-mid); border-radius: 16px; padding: 1.5rem; text-align: center; }
+    .alt-card p { color: var(--muted); font-size: 0.88rem; margin-bottom: 0.5rem; font-weight: 500; }
+    .alt-card a { color: var(--teal); font-weight: 800; text-decoration: none; font-size: 0.95rem; }
     .alt-card a:hover { text-decoration: underline; }
 
-    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--muted); font-size: 0.82rem; }
-    footer a { color: var(--muted); margin: 0 0.75rem; }
-    footer a:hover { color: var(--accent); text-decoration: none; }
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; text-align: center; color: var(--muted); font-size: 0.82rem; }
+    footer .footer-links { margin-top: 0.5rem; }
+    footer .footer-links a { color: var(--muted); margin: 0 0.75rem; font-weight: 600; font-size: 0.82rem; }
+    footer .footer-links a:hover { color: var(--teal); text-decoration: none; }
+    @media (max-width: 600px) { nav { display: none; } .form-card { padding: 1.25rem; } }
   </style>
 </head>
 <body>
 
 <header>
   <a href="#" class="logo">
-    <div class="logo-mark">OZO</div>
+    <div class="logo-mark">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="20" fill="#111111"/>
+        <circle cx="20" cy="20" r="10" fill="white"/>
+        <circle cx="20" cy="20" r="5" fill="#111111"/>
+      </svg>
+    </div>
     <span class="logo-text">OZO<span>servir</span></span>
   </a>
   <nav>
     <a href="privacy-policy.html">Confidentialité</a>
     <a href="terms.html">CGU</a>
-    <a href="data-deletion.html">Suppression</a>
+    <a href="data-deletion.html" class="active">Suppression</a>
   </nav>
 </header>
 
 <div class="hero">
-  <div class="badge">Données</div>
-  <h1>Suppression<br/>de vos données</h1>
-  <p class="subtitle">Si vous avez utilisé Facebook Login ou Google avec OZOservir et souhaitez que vos données soient supprimées, soumettez une demande ci-dessous. Nous la traiterons dans un délai de 30 jours.</p>
+  <div class="badge">Suppression des données</div>
+  <h1>Supprimer<br/>mes données</h1>
+  <p class="subtitle">Demande de suppression de vos données personnelles liées à votre connexion Facebook ou Google. Traitement sous 30 jours.</p>
   <div class="divider"></div>
 </div>
 
 <div class="content">
 
-  <!-- Steps -->
   <div class="steps">
     <div class="step">
       <div class="step-num">1</div>
       <h3>Remplissez le formulaire</h3>
-      <p>Indiquez votre nom, email et identifiant Facebook/Google (optionnel).</p>
+      <p>Nom, email et identifiant social (optionnel).</p>
     </div>
     <div class="step">
       <div class="step-num">2</div>
-      <h3>Confirmation sous 24h</h3>
-      <p>Vous recevrez un email de confirmation dans les 24 heures.</p>
+      <h3>Confirmation 24h</h3>
+      <p>Un email de confirmation vous sera envoyé.</p>
     </div>
     <div class="step">
       <div class="step-num">3</div>
-      <h3>Suppression sous 30j</h3>
-      <p>Toutes vos données seront définitivement supprimées de nos serveurs.</p>
+      <h3>Suppression 30j</h3>
+      <p>Toutes vos données supprimées définitivement.</p>
     </div>
   </div>
 
-  <!-- Form -->
   <div class="form-card" id="formCard">
-    <h2>🗑️ Demande de suppression</h2>
+    <h2>Formulaire de suppression</h2>
     <div class="form-grid">
       <div class="field">
         <label>Nom complet *</label>
@@ -248,8 +189,8 @@
       </div>
     </div>
 
-    <div class="warning">
-      En soumettant ce formulaire, vous confirmez vouloir que toutes vos données soient définitivement supprimées. Cette action est irréversible.
+    <div class="warning-box">
+      ⚠️ En soumettant ce formulaire, vous confirmez vouloir que toutes vos données soient définitivement supprimées. Cette action est irréversible.
     </div>
 
     <button class="btn-delete" onclick="submitForm()">
@@ -257,17 +198,15 @@
     </button>
   </div>
 
-  <!-- Success -->
   <div class="success-card" id="successCard">
     <div class="success-icon">✓</div>
-    <h2>Demande envoyée</h2>
-    <p>Nous avons bien reçu votre demande de suppression. Un email de confirmation vous sera envoyé dans les 24 heures. Vos données seront définitivement supprimées dans un délai de <strong>30 jours</strong>.</p>
+    <h2>Demande envoyée !</h2>
+    <p>Nous avons bien reçu votre demande. Un email de confirmation vous sera envoyé dans les <strong>24 heures</strong>. Vos données seront supprimées sous <strong>30 jours</strong>.</p>
     <div class="ref-code" id="refCode"></div>
   </div>
 
-  <!-- Alt method -->
   <div class="alt-card">
-    <p>Vous pouvez aussi nous envoyer un email directement avec l'objet "Data Deletion Request" :</p>
+    <p>Vous pouvez aussi nous contacter directement avec l'objet "Data Deletion Request" :</p>
     <a href="mailto:support@ozoservir.com?subject=Data%20Deletion%20Request">support@ozoservir.com</a>
   </div>
 
@@ -275,7 +214,7 @@
 
 <footer>
   <p>© 2025 OZOservir. Tous droits réservés.</p>
-  <div style="margin-top: 0.75rem;">
+  <div class="footer-links">
     <a href="privacy-policy.html">Confidentialité</a>
     <a href="terms.html">CGU</a>
     <a href="data-deletion.html">Suppression des données</a>
@@ -286,14 +225,10 @@
   function submitForm() {
     const name = document.getElementById('fullName').value.trim();
     const email = document.getElementById('email').value.trim();
-
     if (!name) { alert('Veuillez entrer votre nom complet.'); return; }
     if (!email || !email.includes('@')) { alert('Veuillez entrer une adresse e-mail valide.'); return; }
-
-    // Generate ref
     const ref = 'OZO-DEL-' + Date.now().toString(36).toUpperCase();
     document.getElementById('refCode').textContent = 'Référence : ' + ref;
-
     document.getElementById('formCard').style.display = 'none';
     document.getElementById('successCard').classList.add('show');
     window.scrollTo({ top: 0, behavior: 'smooth' });

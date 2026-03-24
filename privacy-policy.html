@@ -4,253 +4,177 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OZOservir — Politique de Confidentialité</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0a0a0f;
-      --surface: #12121a;
-      --border: #1e1e2e;
-      --accent: #ff6b35;
-      --accent2: #7c3aed;
-      --text: #e8e8f0;
-      --muted: #6b6b80;
-      --highlight: rgba(255, 107, 53, 0.08);
+      --teal: #5B9E94;
+      --teal-light: #EAF4F2;
+      --teal-mid: #C5E0DC;
+      --amber: #E8952A;
+      --amber-light: #FEF3E2;
+      --navy: #2D3481;
+      --text: #333344;
+      --muted: #8888A0;
+      --bg: #FFFFFF;
+      --surface: #F8FAFA;
+      --border: #E8EFEE;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Nunito', sans-serif;
       font-size: 16px;
-      line-height: 1.75;
-      min-height: 100vh;
-    }
-
-    /* Noise texture overlay */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
+      line-height: 1.7;
     }
 
     /* Header */
     header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(10, 10, 15, 0.85);
-      backdrop-filter: blur(20px);
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      padding: 1rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      padding: 0.9rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 1px 12px rgba(91,158,148,0.08);
     }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      text-decoration: none;
-    }
+    .logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+    /* Real OZO logo: black circle with O cutout */
     .logo-mark {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 14px;
-      color: white;
-      letter-spacing: -0.5px;
+      width: 38px; height: 38px; position: relative;
     }
+    .logo-mark svg { width: 100%; height: 100%; }
     .logo-text {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--text);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800; font-size: 1.15rem;
+      color: var(--navy); letter-spacing: -0.3px;
     }
-    .logo-text span { color: var(--accent); }
+    .logo-text span { color: var(--teal); }
+    nav { display: flex; gap: 0.25rem; }
     nav a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.85rem;
-      transition: color 0.2s;
-      margin-left: 1.5rem;
+      color: var(--muted); text-decoration: none;
+      font-size: 0.82rem; font-weight: 600;
+      padding: 0.4rem 0.9rem; border-radius: 20px;
+      transition: all 0.2s;
     }
-    nav a:hover { color: var(--accent); }
+    nav a:hover, nav a.active {
+      background: var(--teal-light); color: var(--teal);
+    }
 
     /* Hero */
     .hero {
-      position: relative;
-      padding: 5rem 2rem 3rem;
-      max-width: 860px;
-      margin: 0 auto;
+      background: linear-gradient(160deg, var(--teal-light) 0%, #fff 60%);
+      padding: 4rem 1.5rem 3rem;
+      text-align: center;
+      border-bottom: 1px solid var(--teal-mid);
     }
     .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--highlight);
-      border: 1px solid rgba(255, 107, 53, 0.2);
-      border-radius: 100px;
-      padding: 0.35rem 1rem;
-      font-size: 0.78rem;
-      color: var(--accent);
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: white; border: 1.5px solid var(--teal-mid);
+      border-radius: 100px; padding: 0.3rem 1rem;
+      font-size: 0.75rem; font-weight: 700; color: var(--teal);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.25rem;
+      box-shadow: 0 2px 8px rgba(91,158,148,0.12);
     }
-    .badge::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-    }
+    .badge::before { content: '🔒'; font-size: 0.8rem; }
     h1 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(2rem, 5vw, 3rem);
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      margin-bottom: 1rem;
+      font-weight: 900; font-size: clamp(1.8rem, 5vw, 2.8rem);
+      color: var(--navy); letter-spacing: -0.03em; line-height: 1.1;
+      margin-bottom: 0.75rem;
     }
-    .subtitle {
-      color: var(--muted);
-      font-size: 1rem;
-      font-weight: 300;
-    }
+    .subtitle { color: var(--muted); font-size: 0.95rem; font-weight: 500; }
     .divider {
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(to right, var(--accent), var(--accent2));
-      border-radius: 2px;
-      margin: 2rem 0;
+      width: 50px; height: 4px;
+      background: linear-gradient(to right, var(--teal), var(--amber));
+      border-radius: 4px; margin: 1.5rem auto 0;
     }
 
     /* Content */
-    .content {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 2rem 6rem;
-    }
+    .content { max-width: 780px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+
     .section {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2rem 2.5rem;
-      margin-bottom: 1.5rem;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.3s;
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: 18px; padding: 1.75rem 2rem; margin-bottom: 1.25rem;
+      transition: all 0.25s; position: relative; overflow: hidden;
     }
-    .section:hover { border-color: rgba(255, 107, 53, 0.25); }
+    .section:hover {
+      border-color: var(--teal-mid);
+      box-shadow: 0 4px 20px rgba(91,158,148,0.1);
+      transform: translateY(-1px);
+    }
     .section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 3px;
-      height: 100%;
-      background: linear-gradient(to bottom, var(--accent), var(--accent2));
-      opacity: 0;
-      transition: opacity 0.3s;
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 4px; background: linear-gradient(to bottom, var(--teal), var(--teal-mid));
+      border-radius: 4px 0 0 4px;
     }
-    .section:hover::before { opacity: 1; }
     .section-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: var(--accent);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
+      font-size: 0.68rem; font-weight: 800; color: var(--teal);
+      letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.4rem;
     }
-    h2 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.2rem;
-      color: var(--text);
-      margin-bottom: 1rem;
-    }
-    p { color: #b0b0c0; margin-bottom: 0.75rem; font-weight: 300; }
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0.5rem 0;
-    }
+    h2 { font-weight: 800; font-size: 1.1rem; color: var(--navy); margin-bottom: 0.75rem; }
+    p { color: #555568; font-weight: 400; font-size: 0.95rem; margin-bottom: 0.6rem; }
+    ul { list-style: none; margin: 0.5rem 0; }
     ul li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      color: #b0b0c0;
-      font-weight: 300;
-      padding: 0.35rem 0;
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      color: #555568; font-size: 0.95rem; padding: 0.3rem 0;
     }
     ul li::before {
-      content: '→';
-      color: var(--accent);
-      font-weight: 600;
-      flex-shrink: 0;
-      margin-top: 0.05rem;
+      content: ''; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--teal); flex-shrink: 0; margin-top: 0.45rem;
     }
-    a { color: var(--accent); text-decoration: none; }
+    a { color: var(--teal); text-decoration: none; font-weight: 600; }
     a:hover { text-decoration: underline; }
 
-    /* Contact block */
+    /* Contact */
     .contact-block {
-      background: linear-gradient(135deg, rgba(255, 107, 53, 0.08), rgba(124, 58, 237, 0.08));
-      border: 1px solid rgba(255, 107, 53, 0.2);
-      border-radius: 16px;
-      padding: 2rem 2.5rem;
-      margin-top: 2rem;
-      text-align: center;
+      background: linear-gradient(135deg, var(--teal-light), var(--amber-light));
+      border: 1.5px solid var(--teal-mid); border-radius: 18px;
+      padding: 2rem; text-align: center; margin-top: 1.5rem;
     }
-    .contact-block p { color: var(--muted); margin-bottom: 0.5rem; }
+    .contact-block p { color: var(--muted); margin-bottom: 0.5rem; font-size: 0.9rem; }
     .contact-block a {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--accent);
+      font-weight: 800; font-size: 1.05rem; color: var(--teal);
     }
 
     /* Footer */
     footer {
-      border-top: 1px solid var(--border);
-      padding: 2rem;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.82rem;
+      background: var(--surface); border-top: 1px solid var(--border);
+      padding: 1.75rem 1.5rem; text-align: center; color: var(--muted); font-size: 0.82rem;
     }
-    footer a { color: var(--muted); margin: 0 0.75rem; }
-    footer a:hover { color: var(--accent); text-decoration: none; }
+    footer .footer-links { margin-top: 0.5rem; }
+    footer .footer-links a { color: var(--muted); margin: 0 0.75rem; font-weight: 600; font-size: 0.82rem; }
+    footer .footer-links a:hover { color: var(--teal); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      nav { display: none; }
+      .section { padding: 1.25rem 1.25rem; }
+    }
   </style>
 </head>
 <body>
 
 <header>
   <a href="#" class="logo">
-    <div class="logo-mark">OZO</div>
+    <div class="logo-mark">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="20" fill="#111111"/>
+        <circle cx="20" cy="20" r="10" fill="white"/>
+        <circle cx="20" cy="20" r="5" fill="#111111"/>
+      </svg>
+    </div>
     <span class="logo-text">OZO<span>servir</span></span>
   </a>
   <nav>
-    <a href="privacy-policy.html">Confidentialité</a>
+    <a href="privacy-policy.html" class="active">Confidentialité</a>
     <a href="terms.html">CGU</a>
     <a href="data-deletion.html">Suppression</a>
   </nav>
 </header>
 
 <div class="hero">
-  <div class="badge">Légal</div>
-  <h1>Politique de<br/>Confidentialité</h1>
+  <div class="badge">Politique de confidentialité</div>
+  <h1>Vos données,<br/>notre responsabilité</h1>
   <p class="subtitle">Dernière mise à jour : Mars 2025</p>
   <div class="divider"></div>
 </div>
@@ -272,7 +196,7 @@
       <li>Votre adresse e-mail (si la permission est accordée)</li>
       <li>Votre identifiant utilisateur Facebook ou Google</li>
     </ul>
-    <p style="margin-top: 1rem;">Nous ne collectons pas de données sensibles telles que mots de passe, informations financières ou messages privés.</p>
+    <p style="margin-top:0.75rem;">Nous ne collectons pas de données sensibles telles que mots de passe, informations financières ou messages privés.</p>
   </div>
 
   <div class="section">
@@ -323,7 +247,7 @@
 
 <footer>
   <p>© 2025 OZOservir. Tous droits réservés.</p>
-  <div style="margin-top: 0.75rem;">
+  <div class="footer-links">
     <a href="privacy-policy.html">Confidentialité</a>
     <a href="terms.html">CGU</a>
     <a href="data-deletion.html">Suppression des données</a>
