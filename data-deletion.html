@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OZOservir — Suppression des données</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --surface2: #16161f;
+      --border: #1e1e2e;
+      --accent: #ff6b35;
+      --accent2: #7c3aed;
+      --text: #e8e8f0;
+      --muted: #6b6b80;
+      --highlight: rgba(255, 107, 53, 0.08);
+      --red: #ef4444;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.75; min-height: 100vh;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0;
+    }
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10, 10, 15, 0.85); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border); padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .logo-mark {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 14px; color: white;
+    }
+    .logo-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--text); }
+    .logo-text span { color: var(--accent); }
+    nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; margin-left: 1.5rem; }
+    nav a:hover { color: var(--accent); }
+
+    .hero { position: relative; padding: 5rem 2rem 3rem; max-width: 680px; margin: 0 auto; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: 100px; padding: 0.35rem 1rem;
+      font-size: 0.78rem; color: var(--red); font-weight: 500;
+      letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1.5rem;
+    }
+    .badge::before { content: ''; width: 6px; height: 6px; background: var(--red); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.5); }
+    }
+    h1 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1rem; }
+    .subtitle { color: var(--muted); font-size: 1rem; font-weight: 300; }
+    .divider { width: 60px; height: 3px; background: linear-gradient(to right, var(--red), var(--accent)); border-radius: 2px; margin: 2rem 0; }
+
+    .content { max-width: 680px; margin: 0 auto; padding: 0 2rem 6rem; }
+
+    /* How it works */
+    .steps {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    @media (max-width: 600px) { .steps { grid-template-columns: 1fr; } }
+    .step {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem; text-align: center;
+    }
+    .step-num {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.15), rgba(124, 58, 237, 0.15));
+      border: 1px solid rgba(255, 107, 53, 0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.9rem; color: var(--accent);
+      margin: 0 auto 1rem;
+    }
+    .step h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.5rem; }
+    .step p { color: var(--muted); font-size: 0.85rem; margin: 0; }
+
+    /* Form */
+    .form-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px; padding: 2.5rem; margin-bottom: 1.5rem;
+    }
+    .form-card h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.3rem; margin-bottom: 1.75rem; }
+    .form-grid { display: grid; gap: 1.25rem; }
+    .field label {
+      display: block; font-size: 0.82rem; font-weight: 500;
+      color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem;
+    }
+    .field input, .field textarea, .field select {
+      width: 100%; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: 0.85rem 1.1rem;
+      color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+      transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+      -webkit-appearance: none; appearance: none;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.12);
+    }
+    .field input::placeholder, .field textarea::placeholder { color: #3a3a50; }
+    .field textarea { resize: vertical; min-height: 100px; }
+    .field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6b80' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+    .field select option { background: #12121a; }
+
+    .warning {
+      background: rgba(239, 68, 68, 0.06); border: 1px solid rgba(239, 68, 68, 0.15);
+      border-radius: 10px; padding: 1rem 1.25rem; margin-top: 0.5rem;
+      font-size: 0.85rem; color: #f87171; display: flex; align-items: flex-start; gap: 0.75rem;
+    }
+    .warning::before { content: '⚠️'; flex-shrink: 0; }
+
+    .btn-delete {
+      width: 100%; margin-top: 1.5rem;
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      border: none; border-radius: 12px;
+      padding: 1rem 2rem; color: white;
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
+      cursor: pointer; transition: opacity 0.2s, transform 0.15s;
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+    }
+    .btn-delete:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-delete:active { transform: translateY(0); }
+
+    /* Success state */
+    .success-card {
+      display: none; background: var(--surface);
+      border: 1px solid rgba(34, 197, 94, 0.25); border-radius: 20px;
+      padding: 3rem 2.5rem; text-align: center; margin-bottom: 1.5rem;
+    }
+    .success-card.show { display: block; animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .success-icon {
+      width: 70px; height: 70px; background: rgba(34, 197, 94, 0.1);
+      border: 2px solid rgba(34, 197, 94, 0.3);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; margin: 0 auto 1.5rem;
+    }
+    .success-card h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.5rem; margin-bottom: 0.75rem; }
+    .success-card p { color: var(--muted); max-width: 380px; margin: 0 auto; }
+    .ref-code {
+      display: inline-block; margin-top: 1.5rem;
+      background: rgba(34, 197, 94, 0.08); border: 1px solid rgba(34, 197, 94, 0.2);
+      border-radius: 8px; padding: 0.5rem 1.25rem;
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; color: #4ade80;
+      letter-spacing: 0.1em;
+    }
+
+    /* Alt method */
+    .alt-card {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.75rem; text-align: center;
+    }
+    .alt-card p { color: var(--muted); font-size: 0.9rem; margin-bottom: 0.75rem; }
+    .alt-card a {
+      color: var(--accent); font-family: 'Syne', sans-serif; font-weight: 700;
+      text-decoration: none; font-size: 1rem;
+    }
+    .alt-card a:hover { text-decoration: underline; }
+
+    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--muted); font-size: 0.82rem; }
+    footer a { color: var(--muted); margin: 0 0.75rem; }
+    footer a:hover { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="#" class="logo">
+    <div class="logo-mark">OZO</div>
+    <span class="logo-text">OZO<span>servir</span></span>
+  </a>
+  <nav>
+    <a href="privacy-policy.html">Confidentialité</a>
+    <a href="terms.html">CGU</a>
+    <a href="data-deletion.html">Suppression</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="badge">Données</div>
+  <h1>Suppression<br/>de vos données</h1>
+  <p class="subtitle">Si vous avez utilisé Facebook Login ou Google avec OZOservir et souhaitez que vos données soient supprimées, soumettez une demande ci-dessous. Nous la traiterons dans un délai de 30 jours.</p>
+  <div class="divider"></div>
+</div>
+
+<div class="content">
+
+  <!-- Steps -->
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Remplissez le formulaire</h3>
+      <p>Indiquez votre nom, email et identifiant Facebook/Google (optionnel).</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Confirmation sous 24h</h3>
+      <p>Vous recevrez un email de confirmation dans les 24 heures.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Suppression sous 30j</h3>
+      <p>Toutes vos données seront définitivement supprimées de nos serveurs.</p>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div class="form-card" id="formCard">
+    <h2>🗑️ Demande de suppression</h2>
+    <div class="form-grid">
+      <div class="field">
+        <label>Nom complet *</label>
+        <input type="text" id="fullName" placeholder="Jean Dupont" />
+      </div>
+      <div class="field">
+        <label>Adresse e-mail *</label>
+        <input type="email" id="email" placeholder="jean@exemple.com" />
+      </div>
+      <div class="field">
+        <label>Identifiant Facebook ou Google (optionnel)</label>
+        <input type="text" id="socialId" placeholder="Ex: 123456789012345" />
+      </div>
+      <div class="field">
+        <label>Plateforme concernée</label>
+        <select id="platform">
+          <option value="">Sélectionner...</option>
+          <option value="facebook">Facebook Login</option>
+          <option value="google">Google Sign-In</option>
+          <option value="both">Les deux</option>
+          <option value="account">Compte OZOservir complet</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Raison (optionnel)</label>
+        <textarea id="reason" placeholder="Décrivez brièvement votre demande..."></textarea>
+      </div>
+    </div>
+
+    <div class="warning">
+      En soumettant ce formulaire, vous confirmez vouloir que toutes vos données soient définitivement supprimées. Cette action est irréversible.
+    </div>
+
+    <button class="btn-delete" onclick="submitForm()">
+      🗑️ Soumettre la demande de suppression
+    </button>
+  </div>
+
+  <!-- Success -->
+  <div class="success-card" id="successCard">
+    <div class="success-icon">✓</div>
+    <h2>Demande envoyée</h2>
+    <p>Nous avons bien reçu votre demande de suppression. Un email de confirmation vous sera envoyé dans les 24 heures. Vos données seront définitivement supprimées dans un délai de <strong>30 jours</strong>.</p>
+    <div class="ref-code" id="refCode"></div>
+  </div>
+
+  <!-- Alt method -->
+  <div class="alt-card">
+    <p>Vous pouvez aussi nous envoyer un email directement avec l'objet "Data Deletion Request" :</p>
+    <a href="mailto:support@ozoservir.com?subject=Data%20Deletion%20Request">support@ozoservir.com</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2025 OZOservir. Tous droits réservés.</p>
+  <div style="margin-top: 0.75rem;">
+    <a href="privacy-policy.html">Confidentialité</a>
+    <a href="terms.html">CGU</a>
+    <a href="data-deletion.html">Suppression des données</a>
+  </div>
+</footer>
+
+<script>
+  function submitForm() {
+    const name = document.getElementById('fullName').value.trim();
+    const email = document.getElementById('email').value.trim();
+
+    if (!name) { alert('Veuillez entrer votre nom complet.'); return; }
+    if (!email || !email.includes('@')) { alert('Veuillez entrer une adresse e-mail valide.'); return; }
+
+    // Generate ref
+    const ref = 'OZO-DEL-' + Date.now().toString(36).toUpperCase();
+    document.getElementById('refCode').textContent = 'Référence : ' + ref;
+
+    document.getElementById('formCard').style.display = 'none';
+    document.getElementById('successCard').classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>

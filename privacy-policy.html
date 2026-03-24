@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OZOservir — Politique de Confidentialité</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --border: #1e1e2e;
+      --accent: #ff6b35;
+      --accent2: #7c3aed;
+      --text: #e8e8f0;
+      --muted: #6b6b80;
+      --highlight: rgba(255, 107, 53, 0.08);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      min-height: 100vh;
+    }
+
+    /* Noise texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      color: white;
+      letter-spacing: -0.5px;
+    }
+    .logo-text {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+    .logo-text span { color: var(--accent); }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+      margin-left: 1.5rem;
+    }
+    nav a:hover { color: var(--accent); }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      padding: 5rem 2rem 3rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--highlight);
+      border: 1px solid rgba(255, 107, 53, 0.2);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 300;
+    }
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(to right, var(--accent), var(--accent2));
+      border-radius: 2px;
+      margin: 2rem 0;
+    }
+
+    /* Content */
+    .content {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem 2.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .section:hover { border-color: rgba(255, 107, 53, 0.25); }
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .section:hover::before { opacity: 1; }
+    .section-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+    p { color: #b0b0c0; margin-bottom: 0.75rem; font-weight: 300; }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0.5rem 0;
+    }
+    ul li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      color: #b0b0c0;
+      font-weight: 300;
+      padding: 0.35rem 0;
+    }
+    ul li::before {
+      content: '→';
+      color: var(--accent);
+      font-weight: 600;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Contact block */
+    .contact-block {
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.08), rgba(124, 58, 237, 0.08));
+      border: 1px solid rgba(255, 107, 53, 0.2);
+      border-radius: 16px;
+      padding: 2rem 2.5rem;
+      margin-top: 2rem;
+      text-align: center;
+    }
+    .contact-block p { color: var(--muted); margin-bottom: 0.5rem; }
+    .contact-block a {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    footer a { color: var(--muted); margin: 0 0.75rem; }
+    footer a:hover { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="#" class="logo">
+    <div class="logo-mark">OZO</div>
+    <span class="logo-text">OZO<span>servir</span></span>
+  </a>
+  <nav>
+    <a href="privacy-policy.html">Confidentialité</a>
+    <a href="terms.html">CGU</a>
+    <a href="data-deletion.html">Suppression</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="badge">Légal</div>
+  <h1>Politique de<br/>Confidentialité</h1>
+  <p class="subtitle">Dernière mise à jour : Mars 2025</p>
+  <div class="divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section">
+    <div class="section-num">Article 01</div>
+    <h2>Introduction</h2>
+    <p>Bienvenue sur OZOservir ("nous", "notre", "nos"). Nous nous engageons à protéger vos informations personnelles et votre droit à la vie privée. Cette Politique de Confidentialité explique comment nous collectons, utilisons et partageons vos informations lorsque vous utilisez notre application et nos services.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-num">Article 02</div>
+    <h2>Informations collectées</h2>
+    <p>Lorsque vous vous connectez via Facebook Login ou Google, nous pouvons collecter :</p>
+    <ul>
+      <li>Votre profil public (nom, photo de profil)</li>
+      <li>Votre adresse e-mail (si la permission est accordée)</li>
+      <li>Votre identifiant utilisateur Facebook ou Google</li>
+    </ul>
+    <p style="margin-top: 1rem;">Nous ne collectons pas de données sensibles telles que mots de passe, informations financières ou messages privés.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-num">Article 03</div>
+    <h2>Utilisation de vos informations</h2>
+    <ul>
+      <li>Pour vous authentifier et vous identifier au sein de l'application</li>
+      <li>Pour personnaliser votre expérience utilisateur</li>
+      <li>Pour vous envoyer des communications importantes liées au service</li>
+      <li>Pour améliorer notre application et nos services</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-num">Article 04</div>
+    <h2>Partage des informations</h2>
+    <p>Nous ne vendons, n'échangeons ni ne louons vos informations personnelles à des tiers. Nous pouvons partager des données uniquement :</p>
+    <ul>
+      <li>Avec les prestataires qui nous aident à faire fonctionner l'application (sous stricte confidentialité)</li>
+      <li>Lorsque la loi ou une procédure judiciaire l'exige</li>
+      <li>Pour protéger la sécurité de nos utilisateurs</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-num">Article 05</div>
+    <h2>Conservation des données</h2>
+    <p>Nous conservons vos données aussi longtemps que votre compte est actif ou que cela est nécessaire pour vous fournir les services. Vous pouvez demander la suppression de vos données à tout moment en visitant notre <a href="data-deletion.html">page de suppression de données</a>.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-num">Article 06</div>
+    <h2>Vos droits</h2>
+    <ul>
+      <li>Accéder aux données personnelles que nous détenons sur vous</li>
+      <li>Demander la correction de données inexactes</li>
+      <li>Demander la suppression de vos données</li>
+      <li>Retirer votre consentement à tout moment</li>
+    </ul>
+  </div>
+
+  <div class="contact-block">
+    <p>Des questions sur cette politique de confidentialité ?</p>
+    <a href="mailto:support@ozoservir.com">support@ozoservir.com</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2025 OZOservir. Tous droits réservés.</p>
+  <div style="margin-top: 0.75rem;">
+    <a href="privacy-policy.html">Confidentialité</a>
+    <a href="terms.html">CGU</a>
+    <a href="data-deletion.html">Suppression des données</a>
+  </div>
+</footer>
+
+</body>
+</html>

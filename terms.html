@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OZOservir — Conditions Générales d'Utilisation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --border: #1e1e2e;
+      --accent: #ff6b35;
+      --accent2: #7c3aed;
+      --text: #e8e8f0;
+      --muted: #6b6b80;
+      --highlight: rgba(255, 107, 53, 0.08);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      min-height: 100vh;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .logo-mark {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 14px;
+      color: white; letter-spacing: -0.5px;
+    }
+    .logo-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--text); }
+    .logo-text span { color: var(--accent); }
+    nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; margin-left: 1.5rem; }
+    nav a:hover { color: var(--accent); }
+    .hero { position: relative; padding: 5rem 2rem 3rem; max-width: 860px; margin: 0 auto; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--highlight); border: 1px solid rgba(255, 107, 53, 0.2);
+      border-radius: 100px; padding: 0.35rem 1rem;
+      font-size: 0.78rem; color: var(--accent); font-weight: 500;
+      letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1.5rem;
+    }
+    .badge::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+    h1 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1rem; }
+    .subtitle { color: var(--muted); font-size: 1rem; font-weight: 300; }
+    .divider { width: 60px; height: 3px; background: linear-gradient(to right, var(--accent), var(--accent2)); border-radius: 2px; margin: 2rem 0; }
+    .content { max-width: 860px; margin: 0 auto; padding: 0 2rem 6rem; }
+    .section {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+      padding: 2rem 2.5rem; margin-bottom: 1.5rem; position: relative; overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .section:hover { border-color: rgba(255, 107, 53, 0.25); }
+    .section::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+      background: linear-gradient(to bottom, var(--accent), var(--accent2));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .section:hover::before { opacity: 1; }
+    .section-num { font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.2rem; color: var(--text); margin-bottom: 1rem; }
+    p { color: #b0b0c0; margin-bottom: 0.75rem; font-weight: 300; }
+    ul { list-style: none; padding: 0; margin: 0.5rem 0; }
+    ul li { display: flex; align-items: flex-start; gap: 0.75rem; color: #b0b0c0; font-weight: 300; padding: 0.35rem 0; }
+    ul li::before { content: '→'; color: var(--accent); font-weight: 600; flex-shrink: 0; margin-top: 0.05rem; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .warning-block {
+      background: rgba(124, 58, 237, 0.07);
+      border: 1px solid rgba(124, 58, 237, 0.2);
+      border-radius: 12px; padding: 1.25rem 1.5rem; margin-top: 1rem;
+    }
+    .warning-block p { color: #a0a0b8; margin: 0; font-size: 0.9rem; }
+    .contact-block {
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.08), rgba(124, 58, 237, 0.08));
+      border: 1px solid rgba(255, 107, 53, 0.2); border-radius: 16px;
+      padding: 2rem 2.5rem; margin-top: 2rem; text-align: center;
+    }
+    .contact-block p { color: var(--muted); margin-bottom: 0.5rem; }
+    .contact-block a { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--accent); }
+    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--muted); font-size: 0.82rem; }
+    footer a { color: var(--muted); margin: 0 0.75rem; }
+    footer a:hover { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="#" class="logo">
+    <div class="logo-mark">OZO</div>
+    <span class="logo-text">OZO<span>servir</span></span>
+  </a>
+  <nav>
+    <a href="privacy-policy.html">Confidentialité</a>
+    <a href="terms.html">CGU</a>
+    <a href="data-deletion.html">Suppression</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="badge">Légal</div>
+  <h1>Conditions Générales<br/>d'Utilisation</h1>
+  <p class="subtitle">Dernière mise à jour : Mars 2025</p>
+  <div class="divider"></div>
+</div>
+
+<div class="content">
+
+  <div class="section">
+    <div class="section-num">Article 01</div>
+    <h2>Acceptation des conditions</h2>
+    <p>En accédant à ou en utilisant l'application OZOservir, vous acceptez d'être lié par ces Conditions Générales d'Utilisation. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser notre application.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-num">Article 02</div>
+    <h2>Utilisation de l'application</h2>
+    <p>Vous acceptez d'utiliser OZOservir uniquement à des fins licites. Vous vous engagez à ne pas :</p>
+    <ul>
+      <li>Utiliser l'application d'une manière qui viole les lois ou réglementations applicables</li>
+      <li>Tenter d'obtenir un accès non autorisé à toute partie du service</li>
+      <li>Transmettre des contenus nuisibles, offensants ou perturbateurs</li>
+      <li>Usurper l'identité de toute personne ou entité</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-num">Article 03</div>
+    <h2>Connexion Facebook & Google</h2>
+    <p>Notre application utilise Facebook Login et Google Sign-In pour l'authentification. En utilisant ces fonctionnalités, vous acceptez également les Conditions d'Utilisation et la Politique de Données de ces plateformes. Nous ne demandons que les permissions strictement nécessaires au fonctionnement de l'application.</p>
+    <div class="warning-block">
+      <p>⚠️ OZOservir n'a accès qu'aux informations de profil de base (nom, email, identifiant). Nous ne publions jamais en votre nom sur ces plateformes.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-num">Article 04</div>
+    <h2>Propriété intellectuelle</h2>
+    <p>Tout le contenu, les fonctionnalités et les éléments de l'application OZOservir — y compris mais sans s'y limiter les textes, graphiques, logos et logiciels — nous appartiennent et sont protégés par les lois sur la propriété intellectuelle. Vous ne pouvez pas copier, reproduire ou distribuer toute partie de l'application sans autorisation écrite.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-num">Article 05</div>
+    <h2>Exclusion de garanties</h2>
+    <p>OZOservir est fourni "tel quel" sans garanties d'aucune sorte, expresses ou implicites. Nous ne garantissons pas que l'application sera exempte d'erreurs, ininterrompue ou libre de virus ou autres composants nuisibles.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-num">Article 06</div>
+    <h2>Limitation de responsabilité</h2>
+    <p>Dans toute la mesure permise par la loi, OZOservir et son équipe ne sauraient être tenus responsables de tout dommage indirect, accessoire, spécial ou consécutif découlant de votre utilisation de l'application.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-num">Article 07</div>
+    <h2>Modifications des conditions</h2>
+    <p>Nous nous réservons le droit de modifier ces Conditions à tout moment. Nous informerons les utilisateurs des changements importants. La poursuite de l'utilisation de l'application après les modifications constitue une acceptation des nouvelles conditions.</p>
+  </div>
+
+  <div class="contact-block">
+    <p>Des questions sur ces conditions d'utilisation ?</p>
+    <a href="mailto:support@ozoservir.com">support@ozoservir.com</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2025 OZOservir. Tous droits réservés.</p>
+  <div style="margin-top: 0.75rem;">
+    <a href="privacy-policy.html">Confidentialité</a>
+    <a href="terms.html">CGU</a>
+    <a href="data-deletion.html">Suppression des données</a>
+  </div>
+</footer>
+
+</body>
+</html>
